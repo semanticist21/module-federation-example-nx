@@ -1,0 +1,47 @@
+{
+  "name": "federation-react",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/federation-react/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/rspack:rspack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "web",
+        "outputPath": "dist/apps/federation-react",
+        "main": "apps/federation-react/src/main.tsx",
+        "tsConfig": "apps/federation-react/tsconfig.app.json",
+        "rspackConfig": "apps/federation-react/rspack.config.js",
+        "assets": [
+          "apps/federation-react/src/favicon.ico",
+          "apps/federation-react/src/assets"
+        ]
+      },
+      "configurations": {
+        "development": {
+          "mode": "development"
+        },
+        "production": {
+          "mode": "production",
+          "optimization": true,
+          "sourceMap": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/rspack:dev-server",
+      "options": {
+        "buildTarget": "federation-react:build:development"
+      },
+      "configurations": {
+        "development": {},
+        "production": {
+          "buildTarget": "federation-react:build:production"
+        }
+      }
+    }
+  }
+}
