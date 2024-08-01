@@ -16,7 +16,6 @@
         "baseHref": "/",
         "main": "apps/remote2/src/main.ts",
         "tsConfig": "apps/remote2/tsconfig.app.json",
-        "assets": ["apps/remote2/src/favicon.ico", "apps/remote2/src/assets"],
         "styles": ["apps/remote2/src/styles.css"],
         "scripts": [],
         "webpackConfig": "apps/remote2/webpack.config.ts",

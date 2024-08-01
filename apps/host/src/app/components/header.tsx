@@ -1,8 +1,20 @@
+import { RandomValueService } from '@federation-react/query';
 import { useUserStore } from '@federation-react/store';
+import { useQuery } from '@tanstack/react-query';
+import { useLocation } from 'react-router-dom';
 
 export const Header = () => {
   // store
   const { username, setUsername } = useUserStore();
+
+  // router
+  const { state } = useLocation();
+
+  // query
+  const { data } = useQuery({
+    ...RandomValueService.getRandomOptions(),
+    enabled: false,
+  });
 
   return (
     <header
@@ -19,6 +31,14 @@ export const Header = () => {
         <li>
           <a href="/ui">UI</a>
         </li>
+        <div className="flex items-center gap-2 mx-auto">
+          <li className="ml-auto flex gap-4 items-center bg-green-700 rounded-md p-2 text-sm">
+            현재 PARAMS: {JSON.stringify(state)}
+          </li>
+          <li className="ml-auto flex gap-4 items-center bg-teal-700 rounded-md p-2 text-sm">
+            QUERY: {JSON.stringify(data)}
+          </li>
+        </div>
         <li className="ml-auto flex gap-4 items-center">
           {username && (
             <>

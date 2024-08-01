@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@federation-react/hooks": ["lib/hooks/src/index.ts"],
+      "@federation-react/util": ["lib/util/src/index.ts"],
+      "@federation-react/query": ["lib/query/src/index.ts"],
       "@federation-react/store": ["lib/store/src/index.ts"],
       "@federation-react/ui": ["lib/ui/src/index.ts"],
       "remote1/Module": ["apps/remote1/src/remote-entry.ts"],

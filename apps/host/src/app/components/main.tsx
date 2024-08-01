@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import { Header } from './header';
-import { useHeaderSize } from '@federation-react/hooks';
+import { useHeaderSize } from '@federation-react/util';
 
 export const Main = () => {
   // hooks

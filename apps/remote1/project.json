@@ -18,10 +18,6 @@
         "baseHref": "/",
         "main": "apps/remote1/src/main.ts",
         "tsConfig": "apps/remote1/tsconfig.app.json",
-        "assets": [
-          "apps/remote1/src/favicon.ico",
-          "apps/remote1/src/assets"
-        ],
         "styles": [
           "apps/remote1/src/styles.css"
         ],
