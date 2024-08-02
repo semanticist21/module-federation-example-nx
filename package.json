@@ -3,10 +3,10 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "build": "npx nx build host",
-    "build:host": "npx nx build host",
-    "build:remote1": "npx nx build remote1",
-    "build:remote2": "npx nx build remote2"
+    "build": "pnpm nx build host",
+    "build:host": "pnpm nx build host",
+    "build:remote1": "pnpm nx build remote1",
+    "build:remote2": "pnpm nx build remote2"
   },
   "private": true,
   "dependencies": {
