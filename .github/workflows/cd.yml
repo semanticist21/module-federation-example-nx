@@ -30,7 +30,7 @@ jobs:
         run: pnpm install
 
       - name: Build
-        run: pnpm nx run-many -t build
+        run: pnpm nx build host | pnpm nx build remote1 | pnpm nx build remote2
 
       - name: Set up docker Buildx
         uses: docker/setup-buildx-action@v3
