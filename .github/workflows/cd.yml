@@ -6,9 +6,6 @@ on:
       - main
 
 jobs:
-  build-and-push:
-    runs-on: unbutu-latest
-
   deploy:
     runs-on: unbutu-latest
     strategy:
