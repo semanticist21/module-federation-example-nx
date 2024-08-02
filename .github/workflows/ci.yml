@@ -29,10 +29,13 @@ jobs:
       # - run: pnpm dlx nx-cloud start-ci-run --distribute-on="3 linux-medium-js" --stop-agents-after="build"
 
       # Cache node_modules
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v3
         with:
           node-version: 20
           cache: 'pnpm'
+
+      - name: Set Node.js max heap size
+        run: echo "NODE_OPTIONS=--max-old-space-size=8092" >> $GITHUB_ENV
 
       - run: pnpm install --frozen-lockfile
       - uses: nrwl/nx-set-shas@v4
