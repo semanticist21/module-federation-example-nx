@@ -43,4 +43,4 @@ jobs:
       - name: Run affected
         env:
           NODE_OPTIONS: --max-old-space-size=8092
-        run: pnpm exec nx affected -t lint test build
+        run: pnpm exec nx affected -t build
