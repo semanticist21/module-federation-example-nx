@@ -47,5 +47,5 @@ jobs:
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
       - run: |
-          docker build ./dist/apps/host -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/host-app:${{ github.sha }}
+          docker build ./docker/base.dockerfile -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/host-app:${{ github.sha }}
           docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/host-app:${{ github.sha }}
