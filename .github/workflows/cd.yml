@@ -11,6 +11,7 @@ jobs:
     strategy:
       matrix:
         node-version: [20]
+        heap-size: [8092]
 
     steps:
       - name: Checkout repo
@@ -31,8 +32,20 @@ jobs:
 
       - name: Build
         env:
-          NODE_OPTIONS: --max-old-space-size=8092
+          NODE_OPTIONS: --max-old-space-size=${{ matrix.heap-size }}
         run: pnpm nx build host && pnpm nx build remote1 && pnpm nx build remote2
 
-      - name: Set up docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - name: 'Login via Azure CLI'
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: 'Build and push image'
+        uses: azure/docker-login@v1
+        with:
+          login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+      - run: |
+          docker build ./dist/host -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/host-app:${{ github.sha }}
+          docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/host-app:${{ github.sha }}
