@@ -49,7 +49,7 @@
           "namedChunks": false,
           "extractLicenses": true,
           "vendorChunk": false,
-          "webpackConfig": "apps/host/webpack.config.prod.ts",
+          "webpackConfig": "apps/host/webpack.config.prod.ts"
         }
       }
     },

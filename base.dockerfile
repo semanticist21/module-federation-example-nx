@@ -4,10 +4,10 @@ FROM node:22-alpine3.19 AS base
 WORKDIR /dist/apps/
 
 # Install a simple HTTP server
-RUN npm install -g http-server
+RUN npm install -g serve
 
 # Expose the necessary ports
 EXPOSE 4200 4201 4202
 
 # Define the command to run all three services
-CMD sh -c "http-server host -p 4200 & http-server remote -p 4201 & http-server remote2 -p 4202 && wait"
+CMD sh -c "serve remote1 -p 4201 & serve remote2 -p 4202 & serve host -p 80"

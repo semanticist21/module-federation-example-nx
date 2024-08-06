@@ -6,7 +6,8 @@
     "build": "pnpm nx build host",
     "build:host": "pnpm nx build host",
     "build:remote1": "pnpm nx build remote1",
-    "build:remote2": "pnpm nx build remote2"
+    "build:remote2": "pnpm nx build remote2",
+    "build:all": "nx run-many -t build --configuration=production"
   },
   "private": true,
   "dependencies": {
