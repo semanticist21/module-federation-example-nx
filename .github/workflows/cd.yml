@@ -47,18 +47,61 @@ jobs:
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
       - run: |
-          docker build -f ./base.dockerfile -t '${{ secrets.REGISTRY_LOGIN_SERVER }}/frontapp:${{ github.sha }}' .
-          docker push '${{ secrets.REGISTRY_LOGIN_SERVER }}/frontapp:${{ github.sha }}'
+          docker build -f ./docker/host.dockerfile -t '${{ secrets.REGISTRY_LOGIN_SERVER }}/host:${{ github.sha }}' .
+          docker push '${{ secrets.REGISTRY_LOGIN_SERVER }}/host:${{ github.sha }}'
 
-      - name: 'Deploy to Azure Container Instances'
+      - name: 'Build and push image'
+        uses: azure/docker-login@v1
+        with:
+          login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+      - run: |
+          docker build -f ./docker/remote1.dockerfile -t '${{ secrets.REGISTRY_LOGIN_SERVER }}/remote1:${{ github.sha }}' .
+          docker push '${{ secrets.REGISTRY_LOGIN_SERVER }}/remote1:${{ github.sha }}'
+
+      - name: 'Build and push image'
+        uses: azure/docker-login@v1
+        with:
+          login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+      - run: |
+          docker build -f ./docker/remote2.dockerfile -t '${{ secrets.REGISTRY_LOGIN_SERVER }}/remote2:${{ github.sha }}' .
+          docker push '${{ secrets.REGISTRY_LOGIN_SERVER }}/remote2:${{ github.sha }}'
+
+      - name: 'Deploy to Azure Container Instances - host'
         uses: 'azure/aci-deploy@v1'
         with:
           resource-group: ${{ secrets.RESOURCE_GROUP }}
-          dns-name-label: ${{ secrets.RESOURCE_GROUP }}${{ github.run_number }}
-          image: ${{ secrets.REGISTRY_LOGIN_SERVER }}/frontapp:${{ github.sha }}
+          dns-name-label: ${{ secrets.RESOURCE_GROUP }}-host
+          image: ${{ secrets.REGISTRY_LOGIN_SERVER }}/host:${{ github.sha }}
           registry-login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
           registry-username: ${{ secrets.REGISTRY_USERNAME }}
           registry-password: ${{ secrets.REGISTRY_PASSWORD }}
-          name: frontapp-test
+          name: frontapp-host
           location: 'korea central'
-          ports: '80,4201,4202'
+
+      - name: 'Deploy to Azure Container Instances - remote1'
+        uses: 'azure/aci-deploy@v1'
+        with:
+          resource-group: ${{ secrets.RESOURCE_GROUP }}
+          dns-name-label: ${{ secrets.RESOURCE_GROUP }}-remote1
+          image: ${{ secrets.REGISTRY_LOGIN_SERVER }}/remote1:${{ github.sha }}
+          registry-login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
+          registry-username: ${{ secrets.REGISTRY_USERNAME }}
+          registry-password: ${{ secrets.REGISTRY_PASSWORD }}
+          name: frontapp-remote1
+          location: 'korea central'
+
+      - name: 'Deploy to Azure Container Instances - remote2'
+        uses: 'azure/aci-deploy@v1'
+        with:
+          resource-group: ${{ secrets.RESOURCE_GROUP }}
+          dns-name-label: ${{ secrets.RESOURCE_GROUP }}-remote2
+          image: ${{ secrets.REGISTRY_LOGIN_SERVER }}/remote2:${{ github.sha }}
+          registry-login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
+          registry-username: ${{ secrets.REGISTRY_USERNAME }}
+          registry-password: ${{ secrets.REGISTRY_PASSWORD }}
+          name: frontapp-remote2
+          location: 'korea central'

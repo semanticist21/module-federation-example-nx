@@ -25,8 +25,8 @@ const prodConfig: ModuleFederationConfig = {
    * ]
    */
   remotes: [
-    ['remote1', 'http://deploy-test35.koreacentral.azurecontainer.io:4201/'],
-    ['remote2', 'http://deploy-test35.koreacentral.azurecontainer.io:4202/'],
+    ['remote1', 'http://deploy-test-remote1.koreacentral.azurecontainer.io'],
+    ['remote2', 'http://deploy-test-remote2.koreacentral.azurecontainer.io'],
   ],
 };
 

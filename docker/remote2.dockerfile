@@ -12,4 +12,4 @@ RUN npm install -g serve
 RUN serve --version
 
 # Define the command to run all three services
-CMD sh -c "serve remote1 -p 4201 & serve remote2 -p 4202 & serve host -p 80"
+CMD sh -c "serve remote2 -p 80"
