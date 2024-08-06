@@ -12,5 +12,5 @@ RUN npm install -g serve
 RUN serve --version
 
 # Define the command to run all three services
-CMD ["serve", "remote2", "-p", "80"]
+CMD ["serve", "-s", "remote2", "-p", "80"]
 
