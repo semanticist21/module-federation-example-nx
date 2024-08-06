@@ -61,3 +61,4 @@ jobs:
           registry-password: ${{ secrets.REGISTRY_PASSWORD }}
           name: frontapp-test
           location: 'korea central'
+          ports: '80,4201,4202'
